@@ -7,6 +7,19 @@ var divisor = 10;
 var stored_image = [];
 var count = 0;
 var still_frames = 4;
+var zip = new JSZip();
+
+//var captutrer
+//var capturing = 0;
+
+var gui;
+var onion_skin = [];
+
+var OnionSkin = function() {
+  this.opacity = 0.8;
+  this.image = undefined;
+};
+
 
 function setup(){
 
@@ -14,28 +27,52 @@ function setup(){
     // uncomment to use HSC color mode, otherwise defaults to RGB
     //colorMode(HSB, 100);
 
-    // uncomment to enable webcam feed
     capture = createCapture(VIDEO);
     capture.size(W, H);
     capture.hide();
+    
+    gui = new dat.GUI(); //{ width: 350, autoPlace: false } );
 
-    //img = loadImage('assets/test.jpg');  
+    onion_skin[0] = new OnionSkin();
+    onion_skin[1] = new OnionSkin();
+
+    var f = gui.addFolder("onions");
+    f.add(onion_skin[0], "opacity", 0, 255 ).listen();
+    f.add(onion_skin[1], "opacity", 0, 255 ).listen();
+    f.open();
+
+    //capturer = new CCapture( { format: 'webm' } );
 }
 
 function draw(){
 
     //background(255);
 
-    //image(capture, i*(W/10), j*(H/10), W/10, H/10); 
+    // display webcam feed
     image(capture, 0, 0, W, H); 
 
+    // if space bar is pressed
     if(debounce(32, 200)){
+        // capture frame from webcam
         stored_image[count] = get(0, 0, W, H);
+        //var filename = "capture_"+count+".jpg";
+        //zip.file("capture0", stored_image[count],  {base64: true});
         console.log(stored_image);
         image(stored_image[count], W-(W/divisor), H, W/divisor, H/divisor); 
         shiftImages();
         count++;
         //saveCanvas(canvas, 'frame', 'jpg')
+    }
+
+    // show onion skins once frames have been captured
+    if(count >= 1){
+        tint(255, onion_skin[0].opacity);
+        image(stored_image[count-1], 0, 0, W, H); 
+        if(count >= 2){
+            tint(255, onion_skin[1].opacity);
+            image(stored_image[count-2], 0, 0, W, H); 
+        }
+        tint(255, 255);
     }
 
     if(i == divisor){
@@ -51,20 +88,26 @@ function draw(){
         k = 0;
     }
 
-    console.log(k);
-
+    // display animate loop after capturing five frames
     if(count > 5){
         image(stored_image[k], W, 0 , W, H); 
+        /*
+        if(!capturing){
+            capturer.start();
+            capturing = 1;
+        }else{
+            capturer.capture( canvas );
+        }
+        */
     }
-
-    //image(img, 0, 0, W, H);
-
-    fill(0, 102, 153);
-    textSize(32);
-    textAlign(LEFT);
-    text('HELLO P5', 50, 50);
-
 }
+
+/*
+function mousePressed(){
+    capturer.stop();
+    capturer.save();
+}
+*/
 
 var previousTime = Date.now();
 
