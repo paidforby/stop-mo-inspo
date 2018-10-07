@@ -9,8 +9,8 @@ var count = 0;
 var still_frames = 4;
 var zip = new JSZip();
 
-//var captutrer
-//var capturing = 0;
+var captutrer
+var capturing = 0;
 
 var gui;
 var onion_skin = [];
@@ -102,12 +102,10 @@ function draw(){
     }
 }
 
-/*
 function mousePressed(){
-    capturer.stop();
-    capturer.save();
+    //capturer.stop();
+    //capturer.save();
 }
-*/
 
 var previousTime = Date.now();
 
