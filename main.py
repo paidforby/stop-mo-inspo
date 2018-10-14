@@ -1,7 +1,7 @@
 import cv2
 
-cv2.namedWindow("preview")
-cv2.namedWindow("animate")
+#cv2.namedWindow("preview")
+#cv2.namedWindow("animate")
 vc = cv2.VideoCapture(0)
 
 if vc.isOpened(): # try to get the first frame
