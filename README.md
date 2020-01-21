@@ -16,12 +16,12 @@ To get started, open terminal and execute the following commands:
 2. Move into the repo with ```cd stop-mo-inspo``` or copy the contents in to a different folder
 2. Install dependencies (inside of a virtualenv is recommended)  
 ```
-sudo apt install python-tk
+sudo apt install python3-tk
 virtualenv .env  
 source .env/bin/activate
 pip install opencv-python
 ```
-4. Run `python main.py 0 0`
+4. Run `python3 app.py --camera 0 --dslr 0`
 
 The two arguments after `main.py` represent the index of the camera you would like to use (avaible devices can be found by running ```ls /dev/video*```) and whether or not you are using a DSLR-style camera (`0` for no, `1` for yes) which may require additional setup. See below for more info on that.  
 
@@ -48,7 +48,8 @@ It is also great idea to backup the frames in a new folder by running something 
 cp -r frames horses_in_moition
 ```
 
-Now start messing with the ```main.py``` file to modify the script being run.  
+Now start messing with the ```stopmotionapp.py``` file to modify the script being run.  
 
+The interaction between OpenCV and Tkinter was adpated from Adrian Rosebrock's Photobooth App, https://www.pyimagesearch.com/2016/05/30/displaying-a-video-feed-with-opencv-and-tkinter/
 
 GPLv3 grant gallo 
